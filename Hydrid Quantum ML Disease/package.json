@@ -1,0 +1,19 @@
+{
+  "name": "hybrid-qml-disease-detection",
+  "version": "1.0.0",
+  "description": "Hybrid Quantum Machine Learning Early Disease Risk Detection Platform",
+  "main": "script.js",
+  "scripts": {
+    "start": "python main.py",
+    "dev": "uvicorn main:app --host 127.0.0.1 --port 8000 --reload"
+  },
+  "keywords": [
+    "quantum",
+    "machine-learning",
+    "healthcare",
+    "fastapi",
+    "pwa"
+  ],
+  "author": "Medical AI Lab",
+  "license": "ISC"
+}

@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+scikit-learn
+pandas
+numpy
+jinja2
+python-multipart
+qiskit
+qiskit_machine_learning
+qiskit-aer
+qiskit-algorithms

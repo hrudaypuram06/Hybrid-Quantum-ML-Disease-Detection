@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hybrid QML Early Disease Detection</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/static/app_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Fallback rules if fontawesome script doesn't load immediately */
+        i.fas { font-style: normal; margin-right: 8px;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="hidden">
+            <div class="logo">
+                <span class="icon">🧬</span>
+                <div>
+                    <h2>HYBRID QML</h2>
+                    <p>Early Disease Detection</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li onclick="navigateTo('dashboard')" id="nav-dashboard" class="active"><i class="fas fa-home">🏠</i> Dashboard</li>
+                <li onclick="navigateTo('new-assessment')" id="nav-new-assessment"><i class="fas fa-plus">➕</i> Disease Scan</li>
+                <li onclick="navigateTo('explainable-ai')" id="nav-explainable-ai"><i class="fas fa-brain">🧠</i> Explainable AI</li>
+                <li onclick="navigateTo('reports')" id="nav-reports"><i class="fas fa-file-medical-alt">📄</i> Reports</li>
+                <li onclick="navigateTo('model-lab')" id="nav-model-lab"><i class="fas fa-microscope">🔬</i> Model Lab</li>
+                <li onclick="navigateTo('analytics')" id="nav-analytics"><i class="fas fa-chart-line">📊</i> Analytics</li>
+                <li onclick="navigateTo('disease-registry')" id="nav-disease-registry"><i class="fas fa-list">📋</i> Disease Menu</li>
+                <li onclick="navigateTo('settings')" id="nav-settings"><i class="fas fa-cog">⚙</i> Settings</li>
+            </ul>
+            <div class="theme-toggle" style="padding: 1rem 1.5rem; text-align: center; border-top: 1px solid var(--border-light);">
+                <button onclick="toggleTheme()" class="btn-secondary" style="width: 100%; font-size: 1rem; padding: 0.8rem;"><i class="fas fa-adjust"></i> Light / Dark Mode</button>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">👨‍⚕️</div>
+                <div class="user-info">
+                    <p class="name">Doctor</p>
+                    <p class="status">● Online</p>
+                </div>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            <!-- Screen 1: Login -->
+            <section id="login" class="screen">
+                <div class="login-card glass-panel" style="width: 700px; padding: 4rem; text-align: center;">
+                    <div class="login-header">
+                        <span class="logo-icon" style="font-size: 5rem; display: block; margin-bottom: 1rem;">🧬</span>
+                        <h2 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 0.5rem;">HYBRID QUANTUM ML</h2>
+                        <p style="font-size: 1.4rem; color: var(--text-muted);">Clinical Authentication Gateway</p>
+                    </div>
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label style="font-size: 1.3rem;">Doctor Identification (Email)</label>
+                            <input type="email" placeholder="Dr.Smith@hospital.com" required value="doctor@qml.com" style="font-size: 1.6rem; padding: 1.2rem; width: 100%;">
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 1.3rem;">Security Passkey</label>
+                            <input type="password" placeholder="••••••••" required value="Qml_Admin_2026!#" autocomplete="off" style="font-size: 1.6rem; padding: 1.2rem; width: 100%;">
+                        </div>
+                        <button type="submit" class="btn-primary" style="font-size: 1.6rem; padding: 1.2rem; margin-top: 1rem; width: 100%;">ACCESS SYSTEM</button>
+                    </form>
+                    <p class="forgot-pass" style="font-size: 1.2rem; margin-top: 2rem;">Forgot Passkey? Contact IT Administrator</p>
+                </div>
+            </section>
+
+            <!-- Screen 2: Dashboard -->
+            <section id="dashboard" class="screen hidden">
+                <header class="topbar">
+                    <div>
+                        <h1>Good Morning, Doctor</h1>
+                        <p>Early Disease Risk Intelligence</p>
+                    </div>
+                    <button class="btn-primary" style="width: auto;" onclick="navigateTo('new-assessment')">+ New Assessment</button>
+                </header>
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>Patients</h3><p>128</p></div>
+                    <div class="stat-card"><h3>Assessments</h3><p>86</p></div>
+                    <div class="stat-card high-risk"><h3>High Risk</h3><p>18</p></div>
+                    <div class="stat-card"><h3>Models Active</h3><p>3</p></div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="recent-assessments glass-panel" style="margin-top: 2rem;">
+                        <h2 style="margin-bottom: 1rem;">Recent Risk Assessments</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Risk</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>P001</td><td>24 Sep</td><td><span class="badge high">High</span></td><td>Review</td></tr>
+                                <tr><td>P002</td><td>24 Sep</td><td><span class="badge low">Low</span></td><td>Normal</td></tr>
+                                <tr><td>P003</td><td>23 Sep</td><td><span class="badge medium">Medium</span></td><td>Review</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen 3 & 4: New Assessment / Health Data -->
+            <section id="new-assessment" class="screen hidden">
+                <div class="glass-panel form-container" style="max-width: 800px; margin: 0 auto;">
+                    <h2 style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">New Patient Assessment</h2>
+                    <form id="assessment-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Patient ID</label>
+                                <input type="text" id="patient_id" value="P-1045" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Patient Name</label>
+                                <input type="text" id="patient_name" value="John Doe" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Organ/Disease Scan Target</label>
+                                <select id="scan_target">
+                                    <option value="general" selected>General System Screening</option>
+                                    <option value="heart">Heart / Cardiovascular</option>
+                                    <option value="pancreas">Pancreas / Endocrine (Diabetes)</option>
+                                    <option value="lungs">Respiratory / Lungs</option>
+                                    <option value="brain">Neurology / Brain</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Age</label>
+                                <input type="number" id="age" value="52" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Blood Pressure (Systolic)</label>
+                                <input type="number" id="blood_pressure" value="150" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Cholesterol</label>
+                                <input type="number" id="cholesterol" value="240" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Glucose</label>
+                                <input type="number" id="glucose" value="180" required>
+                            </div>
+                            <div class="input-group">
+                                <label>BMI</label>
+                                <input type="number" id="bmi" value="29" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Heart Rate</label>
+                                <input type="number" id="heart_rate" value="92" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Body Temperature (°F)</label>
+                                <input type="number" id="temperature" value="98.6" required step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Smoking</label>
+                                <select id="smoking">
+                                    <option value="0">No</option>
+                                    <option value="1" selected>Yes</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Adaptive Model Router</label>
+                                <select id="model_router">
+                                    <option value="auto" selected>Auto-Select Best Model</option>
+                                    <option value="hybrid">Force Hybrid QML Ensemble</option>
+                                    <option value="quantum">Force Quantum State</option>
+                                    <option value="classical">Force Classical RF</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="grid-column: 1 / -1;">
+                                <label style="display: block; margin-bottom: 0.5rem; color: var(--primary);">Medical Imaging Upload (Optional)</label>
+                                <div style="border: 2px dashed rgba(255,255,255,0.2); border-radius: 10px; padding: 2rem; text-align: center; background: rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 1rem; display: block;"></i>
+                                    <span style="color: var(--text-muted); display: block; margin-bottom: 1rem;">Drag & drop MRI, CT Scan, or X-Ray images here, or click to browse</span>
+                                    <input type="file" accept="image/*" style="opacity: 0; width: 0.1px; height: 0.1px; position: absolute;" id="medical-image-upload">
+                                    <button type="button" class="btn-secondary" style="margin: 0 auto; width: auto; padding: 0.5rem 1rem;" onclick="document.getElementById('medical-image-upload').click()">Browse Files</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary animate-pulse" style="width: auto; padding: 1rem 2rem;">ANALYZE PATIENT →</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- Screen 5: AI Processing Pipeline -->
+            <section id="processing" class="screen hidden">
+                <div class="processing-container">
+                    <h2 style="margin-bottom: 2rem; font-size: 2rem;">🧠 AI Analysis in Progress</h2>
+                    <div class="pipeline">
+                        <div class="step" id="step-data">📥 Patient Data Validation <span class="status">...</span></div>
+                        <div class="step" id="step-scanning">🩻 Organ/Disease Scanning <span class="status">...</span></div>
+                        <div class="step" id="step-features">⚕️ Medical Features Extraction <span class="status">...</span></div>
+                        <div class="step" id="step-fingerprint">🧬 Generating Disease Fingerprint <span class="status">...</span></div>
+                        <div class="step router-step" id="step-router">
+                            <h3 style="margin-bottom: 1rem; color: var(--primary);">⚡ Classical/QML Models Evaluator</h3>
+                            <div class="models">
+                                <div class="model" id="m-classic">Classical ML</div>
+                                <div class="model" id="m-quantum">Quantum ML</div>
+                                <div class="model" id="m-hybrid">Hybrid QML</div>
+                            </div>
+                        </div>
+                        <div class="step" id="step-eval">📊 Computing Risk Score & Explanation <span class="status">...</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen 8: Results & Dashboard -->
+            <section id="results" class="screen hidden">
+                <header class="topbar">
+                    <h2>Assessment Results</h2>
+                    <button class="btn-secondary" onclick="navigateTo('dashboard')">Back to Dashboard</button>
+                </header>
+                <div class="results-grid">
+                    
+                    <!-- Main Risk Score -->
+                    <div class="glass-panel risk-card">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted);">OVERALL EARLY RISK ASSESSMENT</h3>
+                        <div class="risk-score-circle" id="final-risk-circle">
+                            <span id="final-risk-value">76%</span>
+                        </div>
+                        <h2 class="risk-label" id="final-risk-label">HIGH RISK</h2>
+                        <p class="confidence">Confidence: <span id="model-confidence" style="color: white; font-weight: bold;">MEDIUM</span></p>
+                        <p class="warning">⚠ Clinical verification recommended</p>
+                    </div>
+
+                    <!-- Disease Specific Risks -->
+                    <div class="glass-panel risk-card">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">SPECIFIC DISEASE DETECTION</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Cardiovascular</span><strong id="risk-cardio">--%</strong></div>
+                                <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 5px; height: 8px; overflow: hidden;"><div id="bar-cardio" style="background: var(--danger); height: 100%; width: 0%;"></div></div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Diabetes (Type 2)</span><strong id="risk-diabetes">--%</strong></div>
+                                <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 5px; height: 8px; overflow: hidden;"><div id="bar-diabetes" style="background: var(--warning); height: 100%; width: 0%;"></div></div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Hypertension</span><strong id="risk-hypertension">--%</strong></div>
+                                <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 5px; height: 8px; overflow: hidden;"><div id="bar-hypertension" style="background: var(--accent); height: 100%; width: 0%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Model Comparison -->
+                    <div class="glass-panel model-results">
+                        <h3 style="margin-bottom: 1rem;">Model Evaluation Routing</h3>
+                        <ul>
+                            <li>Classical ML <span><span id="res-classic">72%</span></span></li>
+                            <li>Quantum ML <span><span id="res-quantum">74%</span></span></li>
+                            <li class="highlight">Hybrid QML <span><span id="res-hybrid">76%</span> (Selected)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Detailed Assessment Report Interactive Menu -->
+                    <div class="glass-panel" style="grid-column: span 2; margin-top: 1rem; border-left: 5px solid var(--primary); padding: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+                            <h3 style="color: var(--primary); font-size: 1.8rem;"><i class="fas fa-file-medical-alt"></i> Final Assessment Report Menu</h3>
+                            <button class="btn-primary" style="width: auto; padding: 0.5rem 1rem;" onclick="navigateTo('reports')">View Full Reports Menu</button>
+                        </div>
+                        
+                        <!-- Accordion Style Menu -->
+                        <div class="assessment-menu" style="display: flex; flex-direction: column; gap: 1rem;">
+                            
+                            <!-- Menu Item 1: Predictions -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                                <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(0,0,0,0.2);" onclick="toggleMenu('acc-predictions')">
+                                    <h4 style="font-size: 1.2rem; color: white;"><i class="fas fa-bullseye"></i> Disease-Specific Prediction Metrics</h4>
+                                    <span style="font-size: 1.2rem;" id="acc-predictions-icon">▼</span>
+                                </div>
+                                <div id="acc-predictions" style="padding: 1.5rem; display: block;">
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                                        <!-- Cardio -->
+                                        <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--danger); padding: 1rem; border-radius: 6px;">
+                                            <h5 style="color: var(--danger); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fas fa-heartbeat"></i> Cardiovascular Risk</h5>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Accuracy</span><strong style="color: white; font-weight: 800;">95.2%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Precision</span><strong style="color: white; font-weight: 800;">93.8%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted);"><span>F1-Score</span><strong style="color: white; font-weight: 800;">0.94</strong></div>
+                                        </div>
+                                        <!-- Diabetes -->
+                                        <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--warning); padding: 1rem; border-radius: 6px;">
+                                            <h5 style="color: var(--warning); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fas fa-tint"></i> Type 2 Diabetes</h5>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Accuracy</span><strong style="color: white; font-weight: 800;">92.4%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Precision</span><strong style="color: white; font-weight: 800;">90.1%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted);"><span>F1-Score</span><strong style="color: white; font-weight: 800;">0.91</strong></div>
+                                        </div>
+                                        <!-- Hypertension -->
+                                        <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); padding: 1rem; border-radius: 6px;">
+                                            <h5 style="color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fas fa-stethoscope"></i> Hypertension</h5>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Accuracy</span><strong style="color: white; font-weight: 800;">96.8%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.4rem;"><span>Precision</span><strong style="color: white; font-weight: 800;">95.5%</strong></div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted);"><span>F1-Score</span><strong style="color: white; font-weight: 800;">0.96</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Menu Item 2: Disease Stage -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                                <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(0,0,0,0.2);" onclick="toggleMenu('acc-stage')">
+                                    <h4 style="font-size: 1.2rem; color: white;"><i class="fas fa-microscope"></i> Diagnosed Disease Stage</h4>
+                                    <span style="font-size: 1.2rem;" id="acc-stage-icon">▼</span>
+                                </div>
+                                <div id="acc-stage" style="padding: 1.5rem; display: block;">
+                                    <h3 style="color: var(--warning); font-size: 1.4rem; margin-bottom: 0.5rem;" id="metrics-stage">Stage 1 (Early Onset)</h3>
+                                    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">Based on the patient's cardiovascular and metabolic fingerprint, the Quantum Model has classified the risk progression at an early onset stage. Immediate preventative action is highly recommended to reverse disease progression.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Item 3: Precautions -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid var(--warning);">
+                                <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(245, 158, 11, 0.1);" onclick="toggleMenu('acc-precautions')">
+                                    <h4 style="font-size: 1.2rem; color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> Recommended Precautions Menu</h4>
+                                    <span style="font-size: 1.2rem; color: var(--warning);" id="acc-precautions-icon">▼</span>
+                                </div>
+                                <div id="acc-precautions" style="padding: 1.5rem; display: block;">
+                                    <ul style="margin-left: 1.5rem; line-height: 2; font-size: 1.2rem; color: var(--text-main);" id="precautions-list">
+                                        <li>Initiate comprehensive metabolic panel within 48 hours.</li>
+                                        <li>Strictly monitor sodium and processed sugar intake.</li>
+                                        <li>Schedule follow-up cardiovascular ultrasound in 60 days.</li>
+                                        <li>Begin mild aerobic exercise regimen (30 mins daily).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Item 4: Disease Relationship Graph -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                                <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(0,0,0,0.2);" onclick="toggleMenu('acc-relations')">
+                                    <h4 style="font-size: 1.2rem; color: white;"><i class="fas fa-project-diagram"></i> Disease Relationship Graph</h4>
+                                    <span style="font-size: 1.2rem;" id="acc-relations-icon">▼</span>
+                                </div>
+                                <div id="acc-relations" style="padding: 1.5rem; display: block;">
+                                    <p style="color: var(--text-muted); margin-bottom: 1rem;">Visualizing relationships between patient factors, organ systems, and disease-risk patterns.</p>
+                                    <div style="position: relative; height: 350px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px dotted rgba(255,255,255,0.1); overflow: hidden;">
+                                        <!-- SVG Connections -->
+                                        <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1;">
+                                            <line x1="20%" y1="20%" x2="50%" y2="50%" stroke="var(--danger)" stroke-width="2" stroke-dasharray="5,5" />
+                                            <line x1="80%" y1="20%" x2="50%" y2="50%" stroke="var(--warning)" stroke-width="2" />
+                                            <line x1="50%" y1="80%" x2="50%" y2="50%" stroke="var(--accent)" stroke-width="3" />
+                                            <line x1="20%" y1="20%" x2="80%" y2="20%" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                            <line x1="80%" y1="20%" x2="50%" y2="80%" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                        </svg>
+                                        
+                                        <!-- Nodes -->
+                                        <div style="position: absolute; top: 15%; left: 15%; z-index: 2; text-align: center;">
+                                            <div style="width: 70px; height: 70px; background: rgba(239, 68, 68, 0.2); border: 2px solid var(--danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);">🩸</div>
+                                            <span id="trans-bp" style="font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block;">High BP</span>
+                                        </div>
+                                        
+                                        <div style="position: absolute; top: 15%; right: 15%; z-index: 2; text-align: center;">
+                                            <div style="width: 70px; height: 70px; background: rgba(245, 158, 11, 0.2); border: 2px solid var(--warning); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);">🩸</div>
+                                            <span id="trans-glucose" style="font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block;">Glucose</span>
+                                        </div>
+                                        
+                                        <div style="position: absolute; top: 40%; left: 45%; z-index: 2; text-align: center;">
+                                            <div style="width: 90px; height: 90px; background: rgba(16, 185, 129, 0.2); border: 3px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto; box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);">🫀</div>
+                                            <span id="trans-cvd" style="font-size: 0.9rem; font-weight: bold; margin-top: 5px; display: block; color: var(--accent);">Cardio Risk</span>
+                                        </div>
+
+                                        <div style="position: absolute; bottom: 10%; left: 42%; z-index: 2; text-align: center;">
+                                            <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255,255,255,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto;">🧬</div>
+                                            <span id="trans-family" style="font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block; color: var(--text-muted);">Genetics</span>
+                                        </div>
+                                        
+                                        <div style="position: absolute; bottom: 35%; right: 15%; z-index: 2; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px; border-left: 3px solid var(--primary); max-width: 150px;">
+                                            <span id="trans-quantum-insight-title" style="display: block; font-size: 0.8rem; color: var(--text-muted);">Quantum Insight:</span>
+                                            <span id="trans-quantum-insight-desc" style="font-size: 0.85rem; font-weight: bold; color: white;">BP and Glucose synergy mapped to CVD progression.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Screen: Patients -->
+            <section id="patients" class="screen hidden">
+                <header class="topbar">
+                    <h2>Patient Directory</h2>
+                    <button class="btn-primary" style="width: auto;" onclick="navigateTo('new-assessment')">+ New Patient</button>
+                </header>
+                <div class="dashboard-content">
+                    <div class="glass-panel" style="margin-top: 1rem;">
+                        <h2 style="margin-bottom: 1rem;">All Patients List</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Age</th>
+                                    <th>Last Assessment</th>
+                                    <th>Latest Risk Profile</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>P001</td><td>65</td><td>24 Sep 2026</td><td><span class="badge high">High Risk</span></td><td><button class="btn-secondary" style="padding: 0.3rem 0.6rem;">View</button></td></tr>
+                                <tr><td>P002</td><td>42</td><td>24 Sep 2026</td><td><span class="badge low">Low Risk</span></td><td><button class="btn-secondary" style="padding: 0.3rem 0.6rem;">View</button></td></tr>
+                                <tr><td>P003</td><td>58</td><td>23 Sep 2026</td><td><span class="badge medium">Medium Risk</span></td><td><button class="btn-secondary" style="padding: 0.3rem 0.6rem;">View</button></td></tr>
+                                <tr><td>P004</td><td>35</td><td>22 Sep 2026</td><td><span class="badge low">Low Risk</span></td><td><button class="btn-secondary" style="padding: 0.3rem 0.6rem;">View</button></td></tr>
+                                <tr><td>P005</td><td>71</td><td>20 Sep 2026</td><td><span class="badge high">High Risk</span></td><td><button class="btn-secondary" style="padding: 0.3rem 0.6rem;">View</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen: Disease Registry & Organ Scanning -->
+            <section id="disease-registry" class="screen hidden">
+                <header class="topbar">
+                    <h2>Organ & Disease Scanning Menu</h2>
+                </header>
+                <div class="dashboard-content">
+                    <div class="glass-panel" style="margin-top: 1.5rem;">
+                        <h2 style="margin-bottom: 1rem;">Comprehensive Organ-Specific Detection</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Select an organ system to view the specific diseases detected. You can instantly initiate an early-warning scan for any specific organ.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                            
+                            <!-- Heart -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid var(--danger);">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🫀 Heart & Vascular</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Cardiovascular Disease (CVD)</li>
+                                    <li>Hypertension & Arterial Stiffness</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: var(--accent); font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Projected 12% increase in early-onset CVD markers in current patient demographic based on latest quantum scans.</p>
+                                </div>
+                            </div>
+
+                            <!-- Pancreas -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid var(--warning);">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🥩 Pancreas & Endocrine</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Type 2 Diabetes Progression</li>
+                                    <li>Metabolic Syndrome Risk</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: var(--warning); font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Type 2 Diabetes risk profiles remain high. Quantum models predict severe glucose spikes if preventative protocol is ignored.</p>
+                                </div>
+                            </div>
+
+                            <!-- Lungs -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #3b82f6;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🫁 Lungs & Respiratory</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Chronic Obstructive Pulmonary Disease</li>
+                                    <li>Asthmatic Triggers</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #3b82f6; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Respiratory illness indicators dropping globally, but X-Ray anomaly predictions mapping 5% higher accuracy.</p>
+                                </div>
+                            </div>
+
+                            <!-- Brain -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #a855f7;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🧠 Brain & Neurological</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Early onset Alzheimer's Risk</li>
+                                    <li>Cognitive Decline Markers (Beta)</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #a855f7; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Predictive mapping on MRI scans shows a 91% predictive accuracy for isolating early Alzheimer's plaques.</p>
+                                </div>
+                            </div>
+
+                            <!-- Liver -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #eab308;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🩸 Liver / Hepatic</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Non-Alcoholic Fatty Liver (NAFLD)</li>
+                                    <li>Fibrosis Biomarker Disruption</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #eab308; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Steep predicted increase (21%) in NAFLD correlations across patients displaying concurrent metabolic syndrome.</p>
+                                </div>
+                            </div>
+
+                            <!-- Kidneys -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #06b6d4;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>💧 Kidneys / Renal</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Chronic Kidney Disease Early Stages</li>
+                                    <li>Renal Filtration Decline</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #06b6d4; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Predictive modeling dictates steady rates of CKD early stage progression based on correlated hypertension analysis.</p>
+                                </div>
+                            </div>
+
+                            <!-- Stomach -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #84cc16;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🍔 Stomach & Gastrointestinal</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Ulcerative Colitis Signatures</li>
+                                    <li>Gut Microbiome Imbalance Hints</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #84cc16; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Gut microbiome predictive models isolating early inflammatory signatures with 84% simulated accuracy.</p>
+                                </div>
+                            </div>
+
+                            <!-- Bones -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 10px; border-top: 4px solid #ec4899;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3>🦴 Bones & Skeletal System</h3>
+                                </div>
+                                <p style="font-size: 0.85rem; color: white; margin-top: 1rem; font-weight: bold;">Detects:</p>
+                                <ul style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.5rem;">
+                                    <li>Osteoporosis & Bone Density Loss</li>
+                                    <li>Joint Degeneration Rate</li>
+                                </ul>
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <p style="font-size: 0.8rem; color: #ec4899; font-weight: bold;">📊 Global AI Prediction Trend:</p>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Osteoporosis predictions show stable risk mapping. X-Ray image parsing correctly predicts density loss rates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen: Explainable AI -->
+            <section id="explainable-ai" class="screen hidden">
+                <header class="topbar">
+                    <h2>Explainable AI (XAI) Terminal</h2>
+                </header>
+                <div class="dashboard-content">
+                    <div class="glass-panel explain-card" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary);"><i class="fas fa-search-light"></i> WHY? — Important Risk Factors</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.2rem;">Showing SHAP (SHapley Additive exPlanations) values for why the AI made its decision.</p>
+                        <div class="feature-bars" id="feature-importance-bars" style="margin-top: 1rem;">
+                            <!-- Injected via script.js -->
+                        </div>
+                    </div>
+                    <div class="glass-panel whatif-card">
+                        <h3 style="color: var(--warning);"><i class="fas fa-random"></i> WHAT-IF? — Parameter Testing Scenarios</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.2rem; margin-bottom: 1.5rem;">Drag the sliders to simulate how changes in patient lifestyle alter the Quantum prediction.</p>
+                        <div class="slider-group">
+                            <label>Blood Pressure: <span id="wi-bp-val">150</span></label>
+                            <input type="range" id="wi-bp" min="80" max="220" value="150" oninput="updateWhatIf()">
+                        </div>
+                        <div class="slider-group">
+                            <label>Glucose: <span id="wi-gl-val">180</span></label>
+                            <input type="range" id="wi-gl" min="70" max="300" value="180" oninput="updateWhatIf()">
+                        </div>
+                        <div class="slider-group">
+                            <label>BMI: <span id="wi-bmi-val">29</span></label>
+                            <input type="range" id="wi-bmi" min="15" max="50" value="29" oninput="updateWhatIf()">
+                        </div>
+                        <div class="sim-result">
+                            <p style="margin-bottom: 0.5rem; font-size: 1.3rem;">Current Model Risk: <strong id="sim-current">76%</strong></p>
+                            <p style="font-size: 1.3rem;">Scenario Model Risk: <strong id="sim-scenario" class="success-text">--%</strong></p>
+                            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">⚠ This is a model scenario, not a medical guarantee or treatment advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen: Reports -->
+            <section id="reports" class="screen hidden">
+                <header class="topbar">
+                    <h2>Advanced Reporting System</h2>
+                </header>
+                <div class="dashboard-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <button class="btn-primary" style="height: 120px; font-size: 1.5rem;" onclick="alert('Downloading Assessment Report...')">📥 Download Assessment Report (PDF)</button>
+                    <button class="btn-secondary" style="height: 120px; font-size: 1.5rem;" onclick="alert('Generating Patient Summary...')">👨‍⚕️ Generate Patient Report</button>
+                    <button class="btn-secondary" style="height: 120px; font-size: 1.5rem;" onclick="window.print()">🖨️ Print Clinical Snapshot</button>
+                    <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
+                        <h3 style="color: var(--accent);">Export Data</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Export fully formatted FHIR compliant records directly to your EMR system.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen: Model Lab -->
+            <section id="model-lab" class="screen hidden">
+                <header class="topbar">
+                    <h2>Model Lab & Accuracy Metrics</h2>
+                </header>
+                <div class="dashboard-content">
+                    <div class="glass-panel">
+                        <h2>Classical vs Quantum vs Hybrid Comparison</h2>
+                        <table style="margin-top: 1.5rem;">
+                            <thead>
+                                <tr><th>Architecture</th><th>Accuracy</th><th>Precision / Recall</th><th>F1-Score</th><th>ROC-AUC</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Classical Random Forest</td><td>87.4%</td><td>86.2% / 88.5%</td><td>0.87</td><td>0.89</td></tr>
+                                <tr><td>Quantum State (ZZFeatureMap)</td><td>89.1%</td><td>88.9% / 91.0%</td><td>0.90</td><td>0.91</td></tr>
+                                <tr><td style="color: var(--primary); font-weight: bold;">Hybrid QML Ensemble</td><td style="color: var(--primary);">94.5%</td><td style="color: var(--primary);">94.1% / 96.3%</td><td style="color: var(--primary);">0.95</td><td style="color: var(--primary);">0.97</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Screen: Analytics -->
+            <section id="analytics" class="screen hidden">
+                <header class="topbar">
+                    <h2>Macro Analytics & Risk Trends</h2>
+                </header>
+                <div class="dashboard-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="glass-panel" style="border-top: 4px solid var(--danger);">
+                            <h3 style="color: var(--danger); font-size: 1.6rem;"><i class="fas fa-chart-pie"></i> Disease-wise Statistics</h3>
+                            <ul style="margin-top: 1rem; color: var(--text-muted); line-height: 2.5; font-size: 1.3rem;">
+                                <li><strong>Cardiovascular:</strong> 22% rate <span style="float: right; color: var(--danger); font-weight: bold;">CRITICAL TREND</span></li>
+                                <li><strong>Type 2 Diabetes:</strong> 34% rate <span style="float: right; color: var(--warning); font-weight: bold;">ELEVATED TREND</span></li>
+                                <li><strong>Neurological:</strong> 8% rate <span style="float: right; color: var(--accent); font-weight: bold;">STABLE TREND</span></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Model Performance Chart -->
+                        <div class="glass-panel" style="border-top: 4px solid var(--primary);">
+                            <h3 style="color: var(--primary); font-size: 1.6rem;"><i class="fas fa-server"></i> Model Performance Over Time</h3>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 0.3rem;"><span style="color: white; font-weight: bold;">Hybrid QML Ensemble</span><strong style="color: var(--primary);">94.5% ACC</strong></div>
+                                    <div style="background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; overflow: hidden;"><div style="width: 94.5%; background: var(--primary); height: 100%;"></div></div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 0.3rem;"><span style="color: var(--text-muted);">Quantum State (ZZFeatureMap)</span><strong style="color: var(--text-muted);">89.1% ACC</strong></div>
+                                    <div style="background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; overflow: hidden;"><div style="width: 89.1%; background: rgba(255,255,255,0.3); height: 100%;"></div></div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 0.3rem;"><span style="color: var(--text-muted);">Classical RF</span><strong style="color: var(--text-muted);">87.4% ACC</strong></div>
+                                    <div style="background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; overflow: hidden;"><div style="width: 87.4%; background: rgba(255,255,255,0.2); height: 100%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Patient Risk Trends Visualization (By Disease) -->
+                    <div class="glass-panel" style="border-left: 4px solid var(--secondary);">
+                        <h3 style="color: var(--secondary); font-size: 1.6rem;"><i class="fas fa-chart-area"></i> Patient Risk Trends Visualization (By Disease)</h3>
+                        <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 1.1rem;">Tracking population risk across quarters explicitly segregated by major disease categories.</p>
+                        
+                        <div style="position: relative; height: 300px; margin-top: 2rem; padding: 1rem 1.5rem 2rem 3rem; background: rgba(0,0,0,0.3); border-radius: 12px; border-bottom: 2px solid rgba(255,255,255,0.2); border-left: 2px solid rgba(255,255,255,0.2); display: flex; align-items: flex-end; gap: 3rem;  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+                            
+                            <!-- Legend -->
+                            <div style="position: absolute; top: 10px; right: 20px; display: flex; gap: 1rem; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 5px;"><span style="display: block; width: 15px; height: 15px; background: var(--danger); border-radius: 50%;"></span> Cardiovascular</div>
+                                <div style="display: flex; align-items: center; gap: 5px;"><span style="display: block; width: 15px; height: 15px; background: var(--warning); border-radius: 50%;"></span> Diabetes</div>
+                            </div>
+
+                            <!-- Q1 -->
+                            <div style="flex: 1; display: flex; justify-content: center; align-items: flex-end; gap: 5px; height: 100%; position: relative;">
+                                <div style="width: 30px; height: 80%; background: var(--danger); border-radius: 4px 4px 0 0;" title="Cardio: 28%"></div>
+                                <div style="width: 30px; height: 60%; background: var(--warning); border-radius: 4px 4px 0 0;" title="Diabetes: 18%"></div>
+                                <span style="position: absolute; bottom: -25px; width: 100%; text-align: center; color: white; font-weight: bold;">Q1</span>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div style="flex: 1; display: flex; justify-content: center; align-items: flex-end; gap: 5px; height: 100%; position: relative;">
+                                <div style="width: 30px; height: 70%; background: var(--danger); border-radius: 4px 4px 0 0;" title="Cardio: 25%"></div>
+                                <div style="width: 30px; height: 75%; background: var(--warning); border-radius: 4px 4px 0 0;" title="Diabetes: 26%"></div>
+                                <span style="position: absolute; bottom: -25px; width: 100%; text-align: center; color: white; font-weight: bold;">Q2</span>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div style="flex: 1; display: flex; justify-content: center; align-items: flex-end; gap: 5px; height: 100%; position: relative;">
+                                <div style="width: 30px; height: 85%; background: var(--danger); border-radius: 4px 4px 0 0;" title="Cardio: 31%"></div>
+                                <div style="width: 30px; height: 50%; background: var(--warning); border-radius: 4px 4px 0 0;" title="Diabetes: 15%"></div>
+                                <span style="position: absolute; bottom: -25px; width: 100%; text-align: center; color: white; font-weight: bold;">Q3</span>
+                            </div>
+                            
+                            <!-- Q4 -->
+                            <div style="flex: 1; display: flex; justify-content: center; align-items: flex-end; gap: 5px; height: 100%; position: relative;">
+                                <div style="width: 30px; height: 60%; background: var(--danger); border-radius: 4px 4px 0 0;" title="Cardio: 22%"></div>
+                                <div style="width: 30px; height: 85%; background: var(--warning); border-radius: 4px 4px 0 0;" title="Diabetes: 34%"></div>
+                                <span style="position: absolute; bottom: -25px; width: 100%; text-align: center; color: white; font-weight: bold;">Q4 (Now)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Screen: Settings -->
+            <section id="settings" class="screen hidden">
+                <header class="topbar">
+                    <h2>System Configuration</h2>
+                </header>
+                <div class="dashboard-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem;">
+                        
+                        <!-- 👤 Profile & Account -->
+                        <div class="glass-panel">
+                            <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-user"></i> Profile & Account</h3>
+                            <div class="input-group"><label>Name / Email</label><input type="text" value="Dr. Smith (Doctor@qml.com)"></div>
+                            <div class="input-group"><label>Profile Photo</label><input type="file" accept="image/*"></div>
+                            <div class="input-group"><label>Role</label><select><option>Doctor</option><option>Researcher</option><option>Admin</option></select></div>
+                            <button class="btn-secondary" style="margin-top: 10px;">Change Password</button>
+                            <button class="btn-primary" style="margin-top: 10px; background: var(--danger);">Logout</button>
+                        </div>
+                        
+                        <!-- 🔐 Privacy & Security -->
+                        <div class="glass-panel">
+                            <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-lock"></i> Privacy & Security</h3>
+                            <div class="input-group"><label>Two-Factor Authentication</label><select><option>Enabled</option><option>Disabled</option></select></div>
+                            <div class="input-group"><label>Role-based Access</label><select><option>Standard</option><option>Strict</option></select></div>
+                            <div class="input-group"><label>Session Timeout (mins)</label><input type="number" value="30"></div>
+                            <div class="input-group"><label>Data Encryption Status</label><input type="text" value="AES-256 Active" disabled></div>
+                            <button class="btn-secondary" style="margin-top: 10px;">View Audit Log</button>
+                        </div>
+
+                        <!-- 🧠 AI & Model Settings -->
+                        <div class="glass-panel">
+                            <h3 style="color: var(--warning); font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-brain"></i> AI & Model Settings</h3>
+                            <div class="input-group"><label>Default Disease/Organ</label><select><option>General System Screening</option><option>Heart / Cardiovascular</option></select></div>
+                            <div class="input-group"><label>Default ML Model</label><select><option>Hybrid QML</option><option>Quantum ML</option><option>Classical ML</option></select></div>
+                            <div class="input-group"><label>Mode</label><select><option>Classical</option><option>Quantum</option><option>Hybrid</option></select></div>
+                            <div class="input-group"><label>Risk Threshold</label><input type="range" min="0" max="100" value="75"></div>
+                            <div class="input-group"><label>Confidence Threshold</label><input type="range" min="0" max="100" value="80"></div>
+                            <div class="input-group" style="flex-direction: row; align-items: center; gap: 10px;"><input type="checkbox" checked> <label>Uncertainty Alert</label></div>
+                        </div>
+
+                        <!-- ⚛️ Quantum Settings -->
+                        <div class="glass-panel">
+                            <h3 style="color: #a855f7; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-atom"></i> Quantum Settings</h3>
+                            <div class="input-group"><label>Quantum Simulator</label><select><option>Qiskit Aer</option><option>Pennylane</option></select></div>
+                            <div class="input-group"><label>Quantum Backend</label><select><option>ibmq_qasm_simulator</option><option>Local Simulator</option></select></div>
+                            <div class="input-group"><label>Number of Qubits</label><input type="number" value="4"></div>
+                            <div class="input-group"><label>Circuit Depth</label><input type="number" value="2"></div>
+                            <div class="input-group"><label>Quantum Feature Map</label><select><option>ZZFeatureMap</option><option>ZFeatureMap</option></select></div>
+                            <div class="input-group"><label>Execution Limits (Shots)</label><input type="number" value="1024"></div>
+                        </div>
+
+                        <!-- 🔔 Notifications -->
+                        <div class="glass-panel">
+                            <h3 style="color: #06b6d4; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-bell"></i> Notifications</h3>
+                            <div class="input-group"><label>High-risk Alerts</label><select><option>Email & Push</option><option>Off</option></select></div>
+                            <div class="input-group"><label>Low-confidence Alerts</label><select><option>Push Only</option><option>Off</option></select></div>
+                            <div class="input-group"><label>New Assessment Notification</label><select><option>Enabled</option><option>Disabled</option></select></div>
+                            <div class="input-group"><label>Model Training Completion</label><select><option>Email</option><option>Disabled</option></select></div>
+                            <div class="input-group"><label>Report Generation</label><select><option>In-App Alert</option><option>Disabled</option></select></div>
+                        </div>
+
+                        <!-- 📊 Dashboard Preferences -->
+                        <div class="glass-panel">
+                            <h3 style="color: #f97316; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-tachometer-alt"></i> Dashboard Preferences</h3>
+                            <div class="input-group"><label>Default Dashboard View</label><select><option>Overview</option><option>Analytics</option></select></div>
+                            <div class="input-group"><label>Risk Chart Preferences</label><select><option>Bar Chart</option><option>Radar Chart</option></select></div>
+                            <div class="input-group" style="flex-direction: row; align-items: center; gap: 10px;"><input type="checkbox" checked> <label>Show Model Comparison</label></div>
+                            <div class="input-group" style="flex-direction: row; align-items: center; gap: 10px;"><input type="checkbox" checked> <label>Show Confidence Score</label></div>
+                            <div class="input-group" style="flex-direction: row; align-items: center; gap: 10px;"><input type="checkbox" checked> <label>Show WHY? Explanation</label></div>
+                        </div>
+
+                        <!-- 🗄️ Data Management -->
+                        <div class="glass-panel">
+                            <h3 style="color: #eab308; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-database"></i> Data Management</h3>
+                            <button class="btn-secondary" style="margin-bottom: 10px; width: 100%;">Dataset Management</button>
+                            <button class="btn-secondary" style="margin-bottom: 10px; width: 100%;">Import / Export</button>
+                            <button class="btn-secondary" style="margin-bottom: 10px; width: 100%;">Manual Data Backup</button>
+                            <div class="input-group"><label>Data Retention (Days)</label><input type="number" value="365"></div>
+                            <button class="btn-primary" style="background: var(--danger); width: 100%;">Delete Patient Data</button>
+                        </div>
+
+                        <!-- 🎨 Interface -->
+                        <div class="glass-panel">
+                            <h3 style="color: #ec4899; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-paint-brush"></i> Interface & Language</h3>
+                            <button onclick="toggleTheme()" class="btn-secondary" style="margin-bottom: 10px; width: 100%;"><i class="fas fa-adjust"></i> Toggle Light/Dark Mode</button>
+                            <div class="input-group">
+                                <label>Display Language</label>
+                                <select id="lang-select" onchange="changeLanguage()" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 1rem; border-radius: 8px; width: 100%; font-size: 1.1rem; outline: none; cursor: pointer;">
+                                    <option value="en" selected>🇬🇧 English (US/UK)</option>
+                                    <option value="es">🇪🇸 Spanish (Español)</option>
+                                    <option value="fr">🇫🇷 French (Français)</option>
+                                    <option value="de">🇩🇪 German (Deutsch)</option>
+                                    <option value="zh">🇨🇳 Chinese (Mandarin)</option>
+                                    <option value="ja">🇯🇵 Japanese (日本語)</option>
+                                    <option value="hi">🇮🇳 Hindi (हिन्दी)</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label>Font Size</label><select><option>Standard</option><option>Large</option><option>Extra Large</option></select></div>
+                            <div class="input-group"><label>Compact / Comfortable View</label><select><option>Comfortable</option><option>Compact</option></select></div>
+                            <button class="btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem 1.5rem;" onclick="changeLanguage()">Save UI Preferences</button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                .then(r => console.log('PWA SW Registered', r.scope))
+                .catch(e => console.error('SW Registration Failed', e));
+            });
+        }
+    </script>
+</body>
+</html>
