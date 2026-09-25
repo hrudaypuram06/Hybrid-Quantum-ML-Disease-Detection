@@ -5,7 +5,7 @@ pandas
 numpy
 jinja2
 python-multipart
-qiskit
-qiskit_machine_learning
-qiskit-aer
-qiskit-algorithms
+qiskit==1.2.4
+qiskit-machine-learning==0.8.2
+qiskit-aer==0.15.1
+qiskit-algorithms==0.3.1
